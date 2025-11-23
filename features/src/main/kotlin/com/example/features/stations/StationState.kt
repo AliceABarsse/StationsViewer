@@ -1,4 +1,4 @@
-package com.example.stationsviewer.ui
+package com.example.features.stations
 
 import com.example.core.model.data.Station
 

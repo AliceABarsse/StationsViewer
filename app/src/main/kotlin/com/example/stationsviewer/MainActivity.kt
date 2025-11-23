@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.stationsviewer.ui.StationsPane
-import com.example.stationsviewer.ui.nextStationList
-import com.example.stationsviewer.ui.theme.StationsViewerTheme
+import com.example.features.stations.StationsPane
+import com.example.features.stations.nextStationList
+import com.example.features.theme.StationsViewerTheme
 import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
@@ -22,10 +22,12 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     StationsPane(
                         modifier = Modifier.padding(innerPadding),
-                        stations = Random.nextStationList()
-                            /*.filter { station ->
-                            station.isLocal.not()
-                        }*/,
+                        stations = Random.nextStationList(),
+                        /*
+                        // TODO Possible to show sub-stations in another panel
+                        .filter { station ->
+                        station.isLocal.not()
+                    }*/
                         onClickStation = {},
                     )
                 }

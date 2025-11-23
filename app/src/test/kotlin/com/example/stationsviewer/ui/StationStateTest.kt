@@ -1,6 +1,7 @@
 package com.example.stationsviewer.ui
 
 import com.example.core.model.data.Station
+import com.example.features.stations.toStationState
 import org.junit.Assert.*
 import org.junit.Test
 import java.util.UUID

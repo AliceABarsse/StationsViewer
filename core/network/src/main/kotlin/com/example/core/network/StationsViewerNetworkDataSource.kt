@@ -1,7 +1,7 @@
-package com.example.network
+package com.example.core.network
 
-import com.example.network.model.NetworkProgram
-import com.example.network.model.NetworkBrand
+import com.example.core.network.model.NetworkBrand
+import com.example.core.network.model.NetworkProgram
 
 interface StationsViewerNetworkDataSource  {
 

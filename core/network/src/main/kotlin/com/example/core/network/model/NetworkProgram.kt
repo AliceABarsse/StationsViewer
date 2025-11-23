@@ -1,3 +1,3 @@
-package com.example.network.model
+package com.example.core.network.model
 
 data class NetworkProgram(val id: String)

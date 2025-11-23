@@ -1,4 +1,4 @@
-package com.example.stationsviewer.ui
+package com.example.features.stations
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -64,7 +64,7 @@ fun StationsPane(
         items(items = stations, key = { it.id }) { station ->
             StationItemRow(
                 station = station.toStationState(),
-                modifier = Modifier.animateItem(),
+                modifier = Modifier.Companion.animateItem(),
                 onClick = { onClickStation(station.id) },
             )
         }
@@ -138,7 +138,7 @@ private fun StationsPanePreview() {
     }
 }
 
-internal fun Random.nextStationList() = KnownStations.entries.map { stationId ->
+fun Random.nextStationList() = KnownStations.entries.map { stationId ->
     Station(
         id = stationId.name,
         isLocal = (stationId.getParentStation() != null),

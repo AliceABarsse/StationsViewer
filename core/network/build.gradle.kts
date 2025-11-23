@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.appcompat)
+    implementation(libs.koin.android)
+    implementation(libs.koin.core)
     implementation(libs.material)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
