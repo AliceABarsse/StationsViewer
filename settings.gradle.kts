@@ -21,4 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "StationsViewer"
 include(":app")
- 
+include(":features")
+include(":core:domain")
+include(":core:data")
+include(":core:model")
+include(":core:network")
