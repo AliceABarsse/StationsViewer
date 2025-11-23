@@ -22,7 +22,11 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     StationsPane(
                         modifier = Modifier.padding(innerPadding),
-                        stations = Random.nextStationList(),
+                        stations = Random.nextStationList()
+                            /*.filter { station ->
+                            station.isLocal.not()
+                        }*/,
+                        onClickStation = {},
                     )
                 }
             }

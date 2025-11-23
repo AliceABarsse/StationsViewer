@@ -6,16 +6,22 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp.Companion.Hairline
@@ -27,18 +33,40 @@ import com.example.features.theme.StationsViewerTheme
 import kotlin.random.Random
 
 @Composable
-fun StationsPane(modifier: Modifier = Modifier, stations: List<Station>) {
-    Column(modifier = modifier
-        .fillMaxSize()
-        .padding(8.dp)
-        .background(color = MaterialTheme.colorScheme.background),
-        verticalArrangement = spacedBy(4.dp)
-        ) {
-        stations.map { station ->
+fun StationsPane(
+    onClickStation: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    stations: List<Station> = emptyList(),
+) {
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .padding(8.dp)
+            .background(color = MaterialTheme.colorScheme.background),
+        verticalArrangement = spacedBy(8.dp),
+        contentPadding = PaddingValues(16.dp),
+    ) {
+        stickyHeader {
+            Row(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.surface)
+                    .fillMaxWidth()
+                    .height(32.dp)
+            ) {
+                Text(
+                    text = "Stations de radio",
+                    fontWeight = FontWeight.ExtraBold,
+                    color = MaterialTheme.colorScheme.primary,
+                )
+            }
+        }
+        items(items = stations, key = { it.id }) { station ->
             StationItemRow(
                 station = station.toStationState(),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = {},)
+                modifier = Modifier.animateItem(),
+                onClick = { onClickStation(station.id) },
+            )
         }
     }
 }
@@ -49,15 +77,16 @@ internal fun StationItemRow(
     onClick: () -> Unit,
     station: StationState,
 ) {
-    Column {
+    Column (modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
         Row(
             modifier = modifier
                 .clickable(onClick = onClick)
                 .fillMaxWidth()
                 .border(
-                    width = Hairline, color = MaterialTheme.colorScheme.onSurface,
+                    width = Hairline, color = MaterialTheme.colorScheme.primary,
                 )
-                .padding(all = 8.dp),
+                .background(color = MaterialTheme.colorScheme.background)
+                .padding(all = 16.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -67,7 +96,8 @@ internal fun StationItemRow(
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
                 fontSize = 3.em,
-                fontStyle = FontStyle.Italic,
+                fontStyle = FontStyle.Normal,
+                color = MaterialTheme.colorScheme.primary,
             )
             Text(
                 modifier = Modifier.weight(1f),
@@ -75,15 +105,18 @@ internal fun StationItemRow(
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
                 fontSize = 2.em,
+                color = MaterialTheme.colorScheme.secondary
             )
         }
-        Row (modifier = Modifier
-            .fillMaxWidth()
-            .background(color = MaterialTheme.colorScheme.secondary)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = MaterialTheme.colorScheme.tertiary)
+                .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onSecondary,
+                color = MaterialTheme.colorScheme.onTertiary,
                 text = station.tagline,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
@@ -100,6 +133,7 @@ private fun StationsPanePreview() {
     StationsViewerTheme {
         StationsPane(
             stations = Random.nextStationList(),
+            onClickStation = {},
         )
     }
 }
@@ -107,8 +141,8 @@ private fun StationsPanePreview() {
 internal fun Random.nextStationList() = KnownStations.entries.map { stationId ->
     Station(
         id = stationId.name,
-        isLocal = false,
-        title = Random.nextInt().toString(),
+        isLocal = (stationId.getParentStation() != null),
+        title = nextInt().toString(),
         description = "Description",
         baseline = "Baseline",
     )

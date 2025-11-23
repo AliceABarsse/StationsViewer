@@ -87,4 +87,8 @@ enum class KnownStations {
     MOUV_RAPUS,
     MOUV_RNB,
     ;
+    fun getParentStation(): String? = if (name.contains('_')) {
+        name.split("_", limit = 2)[0]
+        } else null
+
 }
