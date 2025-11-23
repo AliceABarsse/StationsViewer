@@ -1,4 +1,4 @@
-package com.example.stationsviewer
+package com.example.stationsviewer.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,8 +24,6 @@ import androidx.compose.ui.unit.em
 import com.example.core.model.data.KnownStations
 import com.example.core.model.data.Station
 import com.example.features.theme.StationsViewerTheme
-import com.example.stationsviewer.ui.StationState
-import com.example.stationsviewer.ui.toStationState
 import kotlin.random.Random
 
 @Composable
@@ -68,7 +66,7 @@ internal fun StationItemRow(
                 text = station.name,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
-                fontSize = 6.em,
+                fontSize = 3.em,
                 fontStyle = FontStyle.Italic,
             )
             Text(

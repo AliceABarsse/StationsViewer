@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.example.core.model.data.KnownStations
-import com.example.core.model.data.Station
+import com.example.stationsviewer.ui.StationsPane
+import com.example.stationsviewer.ui.nextStationList
 import com.example.stationsviewer.ui.theme.StationsViewerTheme
 import kotlin.random.Random
 
