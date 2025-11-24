@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 }
 
+apply(from = "../gradle/scripts/jacoco.gradle")
+
 android {
     namespace = "com.example.stationsviewer"
     compileSdk = 36

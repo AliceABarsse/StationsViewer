@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+apply(from = "../gradle/scripts/jacoco.gradle")
+
 android {
     namespace = "com.example.features"
     compileSdk = 36
