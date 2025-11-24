@@ -1,3 +1,16 @@
+import java.util.Properties
+
+// 1. Create a variable to hold the properties
+val localProperties = Properties()
+
+// 2. specific file object for local.properties
+val localPropertiesFile = rootProject.file("local.properties")
+
+// 3. Check if file exists and load it
+if (localPropertiesFile.exists()) {
+    localProperties.load(localPropertiesFile.inputStream())
+}
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -13,6 +26,11 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        // Loading API key from local.properties
+        val apiKey = localProperties.getProperty("API_KEY") ?: ""
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
+
     }
 
     buildTypes {
@@ -31,6 +49,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        buildConfig = true // Used to access API KEY
+    }
 }
 
 dependencies {
@@ -43,6 +64,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
+    api(project(":core:domain"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -3,11 +3,11 @@ package com.example.features.stations
 import java.util.UUID
 import kotlin.random.Random
 
-fun Random.nextStationState(
+fun Random.nextStationDetail(
     id: String = UUID.randomUUID().toString(),
     isLocal: Boolean = nextBoolean()
 ) =
-    StationState(
+    StationDetail(
         id = id,
         name = id,
         description = UUID.randomUUID().toString(),

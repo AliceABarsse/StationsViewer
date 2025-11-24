@@ -1,0 +1,17 @@
+package com.example.features.stations
+
+import com.example.core.model.data.KnownStations
+import kotlin.random.Random
+
+
+fun Random.nextStationsStateListFromKnownStations() =
+    StationUiState.Success(list =
+        KnownStations.entries.map { stationId ->
+            StationDetail(
+                id = stationId.name,
+                isLocal = (stationId.getParentStation() != null),
+                name = nextInt().toString(),
+                description = "Description",
+                tagline = "Baseline",
+            )
+        })

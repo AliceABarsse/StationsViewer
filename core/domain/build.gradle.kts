@@ -34,9 +34,13 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.koin.android)
+    implementation(libs.koin.core)
     implementation(libs.material)
+    api(project(":core:model"))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

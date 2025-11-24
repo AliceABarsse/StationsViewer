@@ -7,11 +7,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.example.core.model.data.nextStationsListFromKnownStations
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.features.stations.StationsPane
+import com.example.features.stations.StationsViewModel
 import com.example.features.theme.StationsViewerTheme
-import kotlin.random.Random
+import org.koin.compose.viewmodel.koinViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,14 +22,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             StationsViewerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+
+                    val viewModel: StationsViewModel = koinViewModel()
+                    val stationsState by viewModel.stationsState.collectAsStateWithLifecycle()
+
                     StationsPane(
                         modifier = Modifier.padding(innerPadding),
-                        stations = Random.nextStationsListFromKnownStations(),
-                        /*
-                        // TODO Possible to show sub-stations in another panel
-                        .filter { station ->
-                        station.isLocal.not()
-                    }*/
+                        stationsState = stationsState,
                         onClickStation = {},
                     )
                 }

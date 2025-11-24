@@ -14,14 +14,3 @@ fun Random.nextStation(
         baseline = UUID.randomUUID().toString(),
         isLocal = isLocal,
     )
-
-fun Random.nextStationsListFromKnownStations() =
-    KnownStations.entries.map { stationId ->
-        Station(
-            id = stationId.name,
-            isLocal = (stationId.getParentStation() != null),
-            title = nextInt().toString(),
-            description = "Description",
-            baseline = "Baseline",
-        )
-    }

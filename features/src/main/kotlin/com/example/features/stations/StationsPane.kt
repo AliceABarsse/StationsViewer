@@ -36,8 +36,26 @@ import kotlin.random.Random
 fun StationsPane(
     onClickStation: (String) -> Unit,
     modifier: Modifier = Modifier,
-    stations: List<Station> = emptyList(),
+    stationsState: StationUiState = StationUiState.Loading,
 ) {
+    when (stationsState) {
+        is StationUiState.Error -> Text(text = stationsState.message)
+        StationUiState.Loading -> Text(text = "Loading")
+        StationUiState.Empty -> Text(text = "No Stations")
+        is StationUiState.Success -> StationsList(
+            stations = stationsState.list,
+            onClickStation = onClickStation,
+            modifier = modifier,
+        )
+
+    }
+}
+
+@Composable
+fun StationsList(
+    onClickStation: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    stations: List<StationDetail>) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -63,7 +81,7 @@ fun StationsPane(
         }
         items(items = stations, key = { it.id }) { station ->
             StationItemRow(
-                station = station.toStationState(),
+                station = station,
                 modifier = Modifier.Companion.animateItem(),
                 onClick = { onClickStation(station.id) },
             )
@@ -75,7 +93,7 @@ fun StationsPane(
 fun StationItemRow(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    station: StationState,
+    station: StationDetail,
 ) {
     Column (modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
         Row(

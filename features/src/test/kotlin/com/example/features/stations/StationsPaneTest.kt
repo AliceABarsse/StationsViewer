@@ -20,7 +20,7 @@ class StationsPaneTest {
     @Test
     fun `stationItemRow show the correct text`() {
         // Given
-        val expectedStation = Random.nextStationState()
+        val expectedStation = Random.nextStationDetail()
 
         // When
         composeTestRule.setContent {

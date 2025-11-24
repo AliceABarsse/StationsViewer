@@ -20,13 +20,14 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
     }
 
     buildTypes {
 
         getByName("debug") {
             isDebuggable = true
-            resValue("string", "is_debug", "true")
             enableAndroidTestCoverage = true
         }
 
@@ -47,6 +48,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true // Used to access API KEY in network module
     }
     packaging {
         resources {
