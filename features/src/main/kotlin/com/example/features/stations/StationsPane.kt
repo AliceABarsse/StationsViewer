@@ -72,7 +72,7 @@ fun StationsPane(
 }
 
 @Composable
-internal fun StationItemRow(
+fun StationItemRow(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     station: StationState,

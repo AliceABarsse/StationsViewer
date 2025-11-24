@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     id("com.autonomousapps.dependency-analysis")
 }
@@ -23,6 +23,13 @@ android {
     }
 
     buildTypes {
+
+        getByName("debug") {
+            isDebuggable = true
+            resValue("string", "is_debug", "true")
+            enableAndroidTestCoverage = true
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -40,6 +47,11 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
@@ -69,6 +81,13 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.koin.test.junit4)
     testImplementation(libs.koin.android.test)
+    testImplementation(libs.androidx.junit.ktx)
+    testImplementation(libs.ui.test.junit4)
+    testImplementation(libs.robolectric)
+    testImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(libs.compose.runtime)
+    testImplementation(libs.androidx.ui.test.manifest)
+    testImplementation(libs.androidx.ui.test.junit4)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -77,14 +96,8 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-  implementation("androidx.activity:activity:1.12.0")
-  implementation("androidx.compose.foundation:foundation-layout:1.9.5")
-  implementation("androidx.compose.runtime:runtime:1.9.5")
-  androidTestImplementation("androidx.test:monitor:1.8.0")
-  androidTestRuntimeOnly("androidx.test:runner:1.7.0")
-  testRuntimeOnly("androidx.work:work-runtime:2.9.1")
+
   androidTestImplementation(libs.junit)
-  testRuntimeOnly("org.jetbrains.kotlin:kotlin-reflect:2.0.21")
   androidTestRuntimeOnly(libs.coroutines.test)
 
     // Test DATA TODO remove
