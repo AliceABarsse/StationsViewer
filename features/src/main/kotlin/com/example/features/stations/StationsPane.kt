@@ -126,24 +126,3 @@ internal fun StationItemRow(
         }
     }
 }
-
-@Preview
-@Composable
-private fun StationsPanePreview() {
-    StationsViewerTheme {
-        StationsPane(
-            stations = Random.nextStationList(),
-            onClickStation = {},
-        )
-    }
-}
-
-fun Random.nextStationList() = KnownStations.entries.map { stationId ->
-    Station(
-        id = stationId.name,
-        isLocal = (stationId.getParentStation() != null),
-        title = nextInt().toString(),
-        description = "Description",
-        baseline = "Baseline",
-    )
-}

@@ -39,7 +39,7 @@ TODO
 - Single Activity
 - Compose UI, Material3 components
 - Injection de dépendances avec Koin
-- Tests unitaires JUnit4
+- Tests unitaires JUnit4, tests Compose
 
 TODO
 - JUnit4 tests, Compose / Espresso / Robolectric / mockK

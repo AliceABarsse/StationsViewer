@@ -36,6 +36,8 @@ android {
     buildFeatures {
         compose = true
     }
+
+    testFixtures.enable = true
 }
 
 dependencies {
@@ -52,6 +54,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.ui.test.junit4)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -60,4 +64,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Needed to define textFixture sourceSet
+    testFixturesCompileOnly(libs.kotlin.stdlib)
+    testFixturesCompileOnly(project(":core:model"))
+
+    // Use some testFixtures
+    debugImplementation(testFixtures(project(":core:model")))
 }

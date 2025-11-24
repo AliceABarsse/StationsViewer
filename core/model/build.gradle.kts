@@ -1,6 +1,6 @@
 plugins {
-    id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
+    id("java-test-fixtures")
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -11,3 +11,4 @@ kotlin {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
+

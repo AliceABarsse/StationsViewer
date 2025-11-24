@@ -86,4 +86,8 @@ dependencies {
   androidTestImplementation(libs.junit)
   testRuntimeOnly("org.jetbrains.kotlin:kotlin-reflect:2.0.21")
   androidTestRuntimeOnly(libs.coroutines.test)
+
+    // Test DATA TODO remove
+    implementation(testFixtures(project(":core:model")))
+
 }
