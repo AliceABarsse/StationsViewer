@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    id("com.autonomousapps.dependency-analysis")
 }
 
 apply(from = "../gradle/scripts/jacoco.gradle")
@@ -76,4 +77,13 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+  implementation("androidx.activity:activity:1.12.0")
+  implementation("androidx.compose.foundation:foundation-layout:1.9.5")
+  implementation("androidx.compose.runtime:runtime:1.9.5")
+  androidTestImplementation("androidx.test:monitor:1.8.0")
+  androidTestRuntimeOnly("androidx.test:runner:1.7.0")
+  testRuntimeOnly("androidx.work:work-runtime:2.9.1")
+  androidTestImplementation(libs.junit)
+  testRuntimeOnly("org.jetbrains.kotlin:kotlin-reflect:2.0.21")
+  androidTestRuntimeOnly(libs.coroutines.test)
 }

@@ -21,7 +21,12 @@ verticalement. Le tap sur une station devra aﬃcher un second écran aﬃchant 
 TODO
 - Loading screen
 - Empty / error screen
-- 
+
+## Outillage
+- Couverture de code JaCoCo + github action pour visualiser la couverture de code
+- Autonomouse dependency analysis plugin (`./gradlew projectHealth`)
+- LeakCanary
+-
 
 ## Architecture
 - Mono-activité
@@ -44,5 +49,3 @@ TODO
 - Flow + coroutines to handle exchange of data between layers. Flow was not really needed to do a one-time data retrieval, though.
 - Immutable to ensure data is stable (list). No direct handling of stable / unstable data for Compose, in this example it is not really needed.
 - Dependency analysis gradle plugin to detect unused dependencies easily
-
-
