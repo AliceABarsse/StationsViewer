@@ -9,6 +9,8 @@ verticalement. Le tap sur une station devra aﬃcher un second écran aﬃchant 
 
 # Application : StationsViewer
 
+**NB: `API_KEY=12345` doit être renseigné dans un fichier local.properties**
+
 ## Démos
 
 ### Écran des stations
@@ -26,11 +28,10 @@ TODO
 - Couverture de code JaCoCo + github action pour visualiser la couverture de code
 - Autonomouse dependency analysis plugin (`./gradlew projectHealth`)
 - LeakCanary
--
 
 ## Architecture
 - Mono-activité
-- MVI
+- MVI (*UIState)
 
 ## Stack tech
 - API Android minimum 24
@@ -40,6 +41,7 @@ TODO
 - Compose UI, Material3 components
 - Injection de dépendances avec Koin
 - Tests unitaires JUnit4, tests Compose
+- Retrofit + OkHttpClient avec définition d'un interceptor
 
 TODO
 - JUnit4 tests, Compose / Espresso / Robolectric / mockK

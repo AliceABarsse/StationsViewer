@@ -3,8 +3,10 @@ package com.example.core.network.retrofit
 import com.example.core.domain.network.ServiceApi
 import com.example.core.model.data.Station
 import com.example.core.model.data.Program
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import org.json.JSONObject
-import retrofit2.Retrofit
 
 internal class RetrofitNetworkService (private val service: RadioFranceGraphQLService) : ServiceApi {
 
@@ -15,7 +17,39 @@ internal class RetrofitNetworkService (private val service: RadioFranceGraphQLSe
         val queryObject = JSONObject()
         queryObject.put("query", "{ brands { id title baseline description websiteUrl playerUrl liveStream } }")
 
-        val response = service.postQuery(queryObject.toString())
+        val query = """
+{
+  brands {
+    id
+    title
+    baseline
+    description
+    websiteUrl
+    playerUrl
+    liveStream
+    localRadios {
+      id
+      title
+      description
+      liveStream
+      playerUrl
+    }
+    webRadios {
+      id
+      title
+      description
+      liveStream
+      playerUrl
+    }
+  }
+}
+""".trimIndent()
+
+        val requestBody = buildJsonObject {
+            put("query", query)
+        }
+
+        val response = service.postQuery(requestBody)
         val responseBody = response.string()
 
         println(responseBody)
