@@ -1,5 +1,8 @@
 package com.example.core.network.model
 
+import com.example.core.model.data.Station
+import kotlinx.serialization.Serializable
+
 /**
  *  Example data:
  *   {
@@ -22,16 +25,25 @@ package com.example.core.network.model
  *         ]
  *       },
  */
-data class NetworkBrand (
-    val id:String,
-    val title: String,
-    val baseline: String,
-    val description: String,
-    val localRadios: List<LocalRadio>
-    )
 
+
+@Serializable
+data class NetworkBrand(
+    val id: String,
+    val title: String,
+    val baseline: String? = null,
+    val description: String? = null,
+    val localRadios: List<LocalRadio>
+
+    // Add other fields from your query if needed
+    // val websiteUrl: String?,
+    // val playerUrl: String?,
+    // val liveStream: String?
+)
+
+@Serializable
 data class LocalRadio (
     val id:String,
 val title: String,
-val description: String,
+val description: String? = null,
 )

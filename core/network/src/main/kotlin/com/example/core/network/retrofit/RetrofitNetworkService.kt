@@ -3,59 +3,26 @@ package com.example.core.network.retrofit
 import com.example.core.domain.network.ServiceApi
 import com.example.core.model.data.Station
 import com.example.core.model.data.Program
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.json.put
-import org.json.JSONObject
+import com.example.core.network.mapping.toStation
+import com.example.core.network.model.getBrandsQuery
 
 internal class RetrofitNetworkService (private val service: RadioFranceGraphQLService) : ServiceApi {
 
-
-
     override suspend fun getStations(): List<Station> {
 
-        val queryObject = JSONObject()
-        queryObject.put("query", "{ brands { id title baseline description websiteUrl playerUrl liveStream } }")
+        val requestBody = getBrandsQuery()
+        val response = service.postQuery(requestBody)
 
-        val query = """
-{
-  brands {
-    id
-    title
-    baseline
-    description
-    websiteUrl
-    playerUrl
-    liveStream
-    localRadios {
-      id
-      title
-      description
-      liveStream
-      playerUrl
-    }
-    webRadios {
-      id
-      title
-      description
-      liveStream
-      playerUrl
-    }
-  }
-}
-""".trimIndent()
-
-        val requestBody = buildJsonObject {
-            put("query", query)
+        println(response.toString())
+        if (response.errors != null) {
+            throw Exception("GraphQL Error: ${response.errors.firstOrNull()?.message}")
         }
 
-        val response = service.postQuery(requestBody)
-        val responseBody = response.string()
+        val networkBrands = response.data?.brands ?: emptyList()
 
-        println(responseBody)
-
-        // TODO convert network brand to domain Station
-        return emptyList()
+        return networkBrands.map { brand ->
+            brand.toStation()
+        }
     }
 
     override suspend fun getPrograms(stationId: String): List<Program>{
