@@ -9,7 +9,7 @@ fun Random.nextStationsStateListFromKnownStations() =
         KnownStations.entries.map { stationId ->
             StationDetail(
                 id = stationId.name,
-                isLocal = (stationId.getParentStation() != null),
+                isLocal = nextBoolean(),
                 name = nextInt().toString(),
                 description = "Description",
                 tagline = "Baseline",

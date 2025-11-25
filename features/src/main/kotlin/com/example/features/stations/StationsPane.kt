@@ -20,17 +20,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp.Companion.Hairline
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
-import com.example.core.model.data.KnownStations
-import com.example.core.model.data.Station
-import com.example.features.theme.StationsViewerTheme
-import kotlin.random.Random
+import com.example.features.R
+import com.example.features.sharedui.TextCard
 
 @Composable
 fun StationsPane(
@@ -40,8 +38,16 @@ fun StationsPane(
 ) {
     when (stationsState) {
         is StationUiState.Error -> Text(text = stationsState.message)
-        StationUiState.Loading -> Text(text = "Loading")
-        StationUiState.Empty -> Text(text = "No Stations")
+        StationUiState.Loading -> TextCard(
+            text = "Loading",
+            image = painterResource(id = R.drawable.refresh_24px)
+        )
+
+        StationUiState.Empty -> TextCard(
+            text = "No Stations",
+            image = painterResource(id = R.drawable.grid_3x3_off_24px)
+        )
+
         is StationUiState.Success -> StationsList(
             stations = stationsState.list,
             onClickStation = onClickStation,
@@ -52,10 +58,11 @@ fun StationsPane(
 }
 
 @Composable
-fun StationsList(
+internal fun StationsList(
     onClickStation: (String) -> Unit,
     modifier: Modifier = Modifier,
-    stations: List<StationDetail>) {
+    stations: List<StationDetail>
+) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -90,57 +97,80 @@ fun StationsList(
 }
 
 @Composable
-fun StationItemRow(
+internal fun StationItemRow(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     station: StationDetail,
 ) {
-    Column (modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
+    Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
         Row(
             modifier = modifier
                 .clickable(onClick = onClick)
                 .fillMaxWidth()
                 .border(
-                    width = Hairline, color = MaterialTheme.colorScheme.primary,
+                    width = Hairline,
+                    color =
+                        if (station.isLocal)
+                            MaterialTheme.colorScheme.secondary
+                        else MaterialTheme.colorScheme.primary,
                 )
-                .background(color = MaterialTheme.colorScheme.background)
+                .padding(all = 4.dp)
+                .background(
+                    color =
+                        if (station.isLocal)
+                            MaterialTheme.colorScheme.surfaceDim
+                        else MaterialTheme.colorScheme.surface,
+                )
                 .padding(all = 16.dp),
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                modifier = Modifier.weight(0.5f),
+                modifier = Modifier.fillMaxWidth().weight(0.5f),
                 text = station.name,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
-                fontSize = 3.em,
+                fontSize = 4.em,
                 fontStyle = FontStyle.Normal,
                 color = MaterialTheme.colorScheme.primary,
             )
             Text(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.fillMaxWidth()
+                    .weight(0.5f)
+                    .padding(horizontal = 8.dp)
+                ,
                 text = station.description,
                 overflow = TextOverflow.Ellipsis,
-                maxLines = 2,
-                fontSize = 2.em,
-                color = MaterialTheme.colorScheme.secondary
+                maxLines = 5,
+                fontSize = 3.em,
+                color = if (station.isLocal)
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                else
+                    MaterialTheme.colorScheme.onSurface
             )
         }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(color = MaterialTheme.colorScheme.tertiary)
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-        ) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onTertiary,
-                text = station.tagline,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 2,
-                fontSize = 2.em,
-                fontStyle = FontStyle.Italic,
-            )
+        if (station.tagline.isNotBlank()) {
+            TaglineRow(station.tagline)
         }
+    }
+}
+
+@Composable
+private fun TaglineRow(tagline: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = MaterialTheme.colorScheme.tertiary)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            color = MaterialTheme.colorScheme.onTertiary,
+            text = tagline,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2,
+            fontSize = 3.em,
+            fontStyle = FontStyle.Italic,
+        )
     }
 }
