@@ -7,7 +7,7 @@ fun Random.nextStationDetail(
     id: String = UUID.randomUUID().toString(),
     isLocal: Boolean = nextBoolean()
 ) =
-    StationDetail(
+    StationDetails(
         id = id,
         name = id,
         description = UUID.randomUUID().toString(),

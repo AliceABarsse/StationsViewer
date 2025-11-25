@@ -11,16 +11,16 @@ import kotlinx.coroutines.flow.stateIn
 class StationsViewModel(
     getStationsUseCase: GetStationsUseCase
 ) : ViewModel() {
-    val stationsState: StateFlow<StationUiState> =
+    val stationsState: StateFlow<StationsUiState> =
         getStationsUseCase().map { stationsList ->
             if (stationsList.isEmpty())
-                StationUiState.Empty
+                StationsUiState.Empty
             else
-                StationUiState.Success(list = stationsList.map { it.toStationState() })
+                StationsUiState.Success(list = stationsList.map { it.toStationState() })
         }
             .stateIn(
                 scope = viewModelScope,
-                initialValue = StationUiState.Loading,
+                initialValue = StationsUiState.Loading,
                 started = SharingStarted.WhileSubscribed(5_000),
             )
 }

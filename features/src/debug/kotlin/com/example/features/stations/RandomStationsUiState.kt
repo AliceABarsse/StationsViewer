@@ -3,11 +3,10 @@ package com.example.features.stations
 import com.example.core.model.data.KnownStations
 import kotlin.random.Random
 
-
 fun Random.nextStationsStateListFromKnownStations() =
-    StationUiState.Success(list =
+    StationsUiState.Success(list =
         KnownStations.entries.map { stationId ->
-            StationDetail(
+            StationDetails(
                 id = stationId.name,
                 isLocal = nextBoolean(),
                 name = nextInt().toString(),

@@ -2,22 +2,22 @@ package com.example.features.stations
 
 import com.example.core.model.data.Station
 
-sealed interface StationUiState {
-    object Loading : StationUiState
-    data class Error(val message: String) : StationUiState
+sealed interface StationsUiState {
+    object Loading : StationsUiState
+    data class Error(val message: String) : StationsUiState
 
-    object Empty : StationUiState
-    data class Success(val list:List<StationDetail>) : StationUiState
+    object Empty : StationsUiState
+    data class Success(val list:List<StationDetails>) : StationsUiState
 }
 
-data class StationDetail(
+data class StationDetails(
     val id: String,
     val name: String,
     val description: String,
     val tagline: String,
     val isLocal: Boolean
 )
-fun Station.toStationState() = StationDetail(
+fun Station.toStationState() = StationDetails(
     id = id,
     name = id,
     description = description,

@@ -4,7 +4,6 @@ import com.example.core.network.model.LocalRadio
 import com.example.core.network.model.NetworkBrand
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import kotlin.random.Random
 
 class NetworkBrandMappingTest {
 
@@ -41,12 +40,12 @@ class NetworkBrandMappingTest {
             baseline = "Baseline",
             description = "Description",
             localRadios =
-                    List(
-                        size = 3,
-                        init = {
-                            LocalRadio(id = "id$it", title = "Local Radio $it")
-                        },
-                    )
+                List(
+                    size = 3,
+                    init = {
+                        LocalRadio(id = "id$it", title = "Local Radio $it")
+                    },
+                )
         )
 
         // When
@@ -65,39 +64,47 @@ class NetworkBrandMappingTest {
         localRadios.forEachIndexed { index, station ->
             assertEquals(initialNetworkBrand.localRadios[index].id, station.id)
             assertEquals(initialNetworkBrand.localRadios[index].title, station.title)
-            assertEquals(initialNetworkBrand.localRadios[index].description, station.description)
-            assertEquals(false, station.isLocal)
+            assertEquals("", station.description)
+            assertEquals(true, station.isLocal)
         }
     }
 
     @Test
-    fun `toStation mapper for brand with nulled fields`() {
+    fun `toStation mapper for brand with nulled fields and local radios`() {
         // Given
-        val expectedIsLocal = Random.nextBoolean()
         val initialNetworkBrand = NetworkBrand(
             id = "FRANCEINTER",
             title = "France Inter",
             baseline = null,
             description = null,
             localRadios =
-                if (expectedIsLocal)
-                    List(
-                        size = 3,
-                        init = {
-                            LocalRadio(id = "id$it", title = "Local Radio $it")
-                        },
-                    )
-                else emptyList(),
+                List(
+                    size = 3,
+                    init = {
+                        LocalRadio(id = "id$it", title = "Local Radio $it")
+                    },
+                )
         )
 
         // When
         val result = initialNetworkBrand.toStation()
 
         // Then
-        assertEquals(initialNetworkBrand.id, result.id)
-        assertEquals(initialNetworkBrand.title, result.title)
-        assertEquals("", result.description)
-        assertEquals("", result.baseline)
-        assertEquals(expectedIsLocal, result.isLocal)
+        assertEquals(4, result.size)
+        val mainRadio = result.first()
+        val localRadios = result.drop(1)
+
+        assertEquals(initialNetworkBrand.id, mainRadio.id)
+        assertEquals(initialNetworkBrand.title, mainRadio.title)
+        assertEquals("", mainRadio.description)
+        assertEquals("", mainRadio.baseline)
+        assertEquals(false, mainRadio.isLocal)
+        check(initialNetworkBrand.localRadios?.size == 3)
+        localRadios.forEachIndexed { index, station ->
+            assertEquals(initialNetworkBrand.localRadios[index].id, station.id)
+            assertEquals(initialNetworkBrand.localRadios[index].title, station.title)
+            assertEquals("", station.description)
+            assertEquals(true, station.isLocal)
+        }
     }
 }

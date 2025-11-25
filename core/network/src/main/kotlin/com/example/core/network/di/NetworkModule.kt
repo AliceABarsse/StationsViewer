@@ -29,6 +29,7 @@ class LoggingInterceptor : Interceptor {
         return response
     }
 }
+
 val networkModule = module {
 
     single<ServiceApi> {

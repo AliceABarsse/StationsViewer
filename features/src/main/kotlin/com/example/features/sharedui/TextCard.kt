@@ -4,10 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
@@ -26,32 +26,37 @@ internal fun TextCard(
     modifier: Modifier = Modifier,
     image: Painter? = null,
 ) {
-    OutlinedCard(
+    Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = MaterialTheme.colorScheme.onPrimary)
-            .padding(all = 32.dp)
+            .background(color = MaterialTheme.colorScheme.onPrimary),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
+        OutlinedCard(
             modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .background(color = MaterialTheme.colorScheme.onPrimary)
+                .padding(all = 32.dp)
         ) {
-            Spacer(modifier = Modifier.weight(1f))
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = text,
-                fontSize = 6.em,
-                fontStyle = FontStyle.Normal,
-                color = MaterialTheme.colorScheme.primary,
-                textAlign = TextAlign.Center,
-            )
-            image?.let {
-                Image(painter = it, contentDescription = null)
+            Column(
+                modifier = Modifier
+                    .padding(all = 32.dp)
+                    .wrapContentSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = text,
+                    fontSize = 6.em,
+                    fontStyle = FontStyle.Normal,
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center,
+                )
+                image?.let {
+                    Image(painter = it, contentDescription = null)
+                }
             }
-            Spacer(modifier = Modifier.weight(1f))
         }
-
     }
 }

@@ -1,3 +1,6 @@
 <resources>
     <string name="title_activity_stations">StationsActivity</string>
+    <string name="label_list_radiostations">Stations de radio</string>
+    <string name="label_list_programs">Programmes</string>
+    <string name="message_error">Error: %1$s</string>
 </resources>

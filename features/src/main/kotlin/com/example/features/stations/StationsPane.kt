@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -34,21 +35,25 @@ import com.example.features.sharedui.TextCard
 fun StationsPane(
     onClickStation: (String) -> Unit,
     modifier: Modifier = Modifier,
-    stationsState: StationUiState = StationUiState.Loading,
+    stationsState: StationsUiState = StationsUiState.Loading,
 ) {
     when (stationsState) {
-        is StationUiState.Error -> Text(text = stationsState.message)
-        StationUiState.Loading -> TextCard(
+        is StationsUiState.Error -> TextCard(text = stringResource(
+            R.string.message_error,
+            stationsState.message
+        ),
+            image = painterResource(id = R.drawable.grid_3x3_off_24px))
+        StationsUiState.Loading -> TextCard(
             text = "Loading",
             image = painterResource(id = R.drawable.refresh_24px)
         )
 
-        StationUiState.Empty -> TextCard(
+        StationsUiState.Empty -> TextCard(
             text = "No Stations",
             image = painterResource(id = R.drawable.grid_3x3_off_24px)
         )
 
-        is StationUiState.Success -> StationsList(
+        is StationsUiState.Success -> StationsList(
             stations = stationsState.list,
             onClickStation = onClickStation,
             modifier = modifier,
@@ -61,7 +66,7 @@ fun StationsPane(
 internal fun StationsList(
     onClickStation: (String) -> Unit,
     modifier: Modifier = Modifier,
-    stations: List<StationDetail>
+    stations: List<StationDetails>
 ) {
     LazyColumn(
         modifier = modifier
@@ -80,7 +85,7 @@ internal fun StationsList(
                     .height(32.dp)
             ) {
                 Text(
-                    text = "Stations de radio",
+                    text = stringResource(R.string.label_list_radiostations),
                     fontWeight = FontWeight.ExtraBold,
                     color = MaterialTheme.colorScheme.primary,
                 )
@@ -100,7 +105,7 @@ internal fun StationsList(
 internal fun StationItemRow(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    station: StationDetail,
+    station: StationDetails,
 ) {
     Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
         Row(
@@ -126,7 +131,9 @@ internal fun StationItemRow(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                modifier = Modifier.fillMaxWidth().weight(0.5f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(0.5f),
                 text = station.name,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
@@ -135,7 +142,8 @@ internal fun StationItemRow(
                 color = MaterialTheme.colorScheme.primary,
             )
             Text(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .weight(0.5f)
                     .padding(horizontal = 8.dp)
                 ,
