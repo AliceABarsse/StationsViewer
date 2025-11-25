@@ -20,7 +20,7 @@ internal class RetrofitNetworkService (private val service: RadioFranceGraphQLSe
 
         val networkBrands = response.data?.brands ?: emptyList()
 
-        return networkBrands.map { brand ->
+        return networkBrands.flatMap { brand ->
             brand.toStation()
         }
     }
