@@ -13,8 +13,8 @@ internal class RetrofitNetworkService (private val service: RadioFranceGraphQLSe
         val requestBody = getBrandsQuery()
         val response = service.postQuery(requestBody)
 
-        println(response.toString())
         if (response.errors != null) {
+            // TODO use a more specific Result<List<Station>, BrandException> return value
             throw Exception("GraphQL Error: ${response.errors.firstOrNull()?.message}")
         }
 

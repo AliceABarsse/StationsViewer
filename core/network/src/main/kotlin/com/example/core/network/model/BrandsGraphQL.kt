@@ -12,22 +12,10 @@ private val BRANDS_QUERY = """
     title
     baseline
     description
-    websiteUrl
-    playerUrl
-    liveStream
     localRadios {
       id
       title
       description
-      liveStream
-      playerUrl
-    }
-    webRadios {
-      id
-      title
-      description
-      liveStream
-      playerUrl
     }
   }
 }

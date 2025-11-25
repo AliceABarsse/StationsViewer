@@ -9,5 +9,5 @@ fun NetworkBrand.toStation(): Station =
         title = title,
         description = description ?: "",
         baseline = baseline ?: "",
-        isLocal = localRadios.isEmpty().not(),
+        isLocal = localRadios?.isEmpty()?.not() ?: false,
     )

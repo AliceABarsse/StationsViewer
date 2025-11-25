@@ -1,12 +1,7 @@
+// Code to read value for API key from local.properties file
 import java.util.Properties
-
-// 1. Create a variable to hold the properties
 val localProperties = Properties()
-
-// 2. specific file object for local.properties
 val localPropertiesFile = rootProject.file("local.properties")
-
-// 3. Check if file exists and load it
 if (localPropertiesFile.exists()) {
     localProperties.load(localPropertiesFile.inputStream())
 }
@@ -30,7 +25,6 @@ android {
         // Loading API key from local.properties
         val apiKey = localProperties.getProperty("API_KEY") ?: ""
         buildConfigField("String", "API_KEY", "\"$apiKey\"")
-
     }
 
     buildTypes {

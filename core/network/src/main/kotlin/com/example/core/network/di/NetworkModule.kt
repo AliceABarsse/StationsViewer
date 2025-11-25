@@ -34,8 +34,6 @@ class LoggingInterceptor : Interceptor {
 val networkModule = module {
 
     single<ServiceApi> {
-
-        println ("API KEY is ${BuildConfig.API_KEY}")
         val json = Json {
             ignoreUnknownKeys = true
         }

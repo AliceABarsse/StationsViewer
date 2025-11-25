@@ -25,7 +25,7 @@ class NetworkBrandMappingTest {
                             LocalRadio(id = "id$it", title = "Local Radio $it")
                         },
                     )
-                else emptyList(),
+                else null,
         )
 
         // When
@@ -69,5 +69,4 @@ class NetworkBrandMappingTest {
         assertEquals("", result.baseline)
         assertEquals(expectedIsLocal, result.isLocal)
     }
-
 }
