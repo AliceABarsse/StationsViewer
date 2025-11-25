@@ -78,11 +78,17 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
 
+    testImplementation(libs.compose.runtime)
+    testImplementation(libs.robolectric)
+    testImplementation(platform(libs.androidx.compose.bom))
     testImplementation(libs.junit)
-    //testImplementation(libs.robolectric)
+    testImplementation(libs.compose.runtime)
+    testImplementation(libs.androidx.ui.test.junit4)
+
 
     // Needed to define textFixture sourceSet
     testFixturesCompileOnly(libs.kotlin.stdlib)
+    testFixturesImplementation(libs.compose.runtime)
     testFixturesCompileOnly(project(":core:model"))
 
     // Use some testFixtures

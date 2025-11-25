@@ -18,10 +18,7 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-
     }
 
     buildTypes {
@@ -50,6 +47,9 @@ android {
         compose = true
         buildConfig = true // Used to access API KEY in network module
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.kotlin.toString()
+    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.koin.compose.viewmodel)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.compose.navigation)
+    implementation(libs.compose.runtime)
     implementation(libs.kotlinx.serialization.json)
     implementation(platform(libs.androidx.compose.bom))
     implementation(project(":core:data"))
@@ -85,11 +86,6 @@ dependencies {
     testImplementation(libs.koin.android.test)
     testImplementation(libs.androidx.junit.ktx)
     testImplementation(libs.ui.test.junit4)
-    testImplementation(libs.robolectric)
-    testImplementation(platform(libs.androidx.compose.bom))
-    testImplementation(libs.compose.runtime)
-    testImplementation(libs.androidx.ui.test.manifest)
-    testImplementation(libs.androidx.ui.test.junit4)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
