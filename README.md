@@ -13,41 +13,51 @@ verticalement. Le tap sur une station devra aﬃcher un second écran aﬃchant 
 
 ## Démos
 
-### Écran des stations
+https://github.com/user-attachments/assets/7cbad6c7-eaa9-41bf-a962-12df514fb94d
 
-### Écran des émissions d'une station donnée
+### Écran des stations et Écran des émissions d'une station donnée
+
+|Stations|Émissions|
+|-|-|
+|<img width="300" alt="Screenshot 2025-11-26 at 14 34 11" src="https://github.com/user-attachments/assets/c05069d7-4bf9-4a15-b68b-bd242a1c59fa" />|<img width="300" alt="Screenshot 2025-11-26 at 14 27 17" src="https://github.com/user-attachments/assets/d10041bf-3943-4f20-b47c-9a5611f8a700" />|
 
 ## Fonctionnalités
-- Liste scrollable avec du lazy-loading
-
-TODO
-- Loading screen
-- Empty / error screen
+- Listes scrollables avec du lazy-loading
+- app icon + personalized Theme
+- Compose tests
+- "Back” action
 
 ## Outillage
-- Couverture de code JaCoCo + github action pour visualiser la couverture de code
-- Autonomouse dependency analysis plugin (`./gradlew projectHealth`)
-- LeakCanary
+- Couverture de code JaCoCo + *github action* pour visualiser la couverture de code (mais la config ne semble pas tout à fait au point...)
+- Autonomouse *dependency analysis plugin* (`./gradlew projectHealth`)
+- Random / test values dans des `testFixtures` srcSets
 
 ## Architecture
 - Mono-activité
-- MVI (*UIState)
+- MVI (UI states immuables et actions utilisateurs envoyées aux ViewModels)
+- Single responsability Principle : modules Gradles clairement identifiés et surfaces d'interface petites
+- Open (for extension) / Closed (for modification) Principle : scope limité des types internes, interfaces définies au niveau visible pour tous
+- (Liskov Principle: pas de point particulier)
+- Interface segregation Principle: petites interfaces ciblées (par exemple GetStationUseCase)
+- Dependency inversion Principle: `:core:network`, `:core:data`, `:features` ne dépendent que de `:core:domain` (interfaces) et de `:code:model` (objets métier)
 
 ## Stack tech
 - API Android minimum 24
-- build : Gradle avec DSL Kotlin, catalogue de dépendances toml
-- Modularisation Gradle: app, features, core (sous-projets model, data, domain, etc.)
+- build : *Gradle avec DSL Kotlin*, catalogue de dépendances *toml*
+- *Modularisation Gradle*: `:app`, `:features`, `:core` (sous-projets `:core:model`, `:core:data`, `:core:domain`, `:core:network`)
 - Single Activity
-- Compose UI, Material3 components
-- Injection de dépendances avec Koin
-- Tests unitaires JUnit4, tests Compose
-- Retrofit + OkHttpClient avec définition d'un interceptor
+- *Compose* UI, Material3 components
+- Injection de dépendances avec *Koin*
+- *Tests unitaires* JUnit4, tests Compose, Robolectric, Mockk
+- *Retrofit* + OkHttpClient avec définition d'un interceptor pour le token d'autorisation, et *kotlinx serialization*
+- *Coroutines et Flows* pour les données
+- Strings extraites dans une `resource`, *I18n-ready*
 
-TODO
-- JUnit4 tests, Compose / Espresso / Robolectric / mockK
-- Strings extracted to a strings resource, I18n-ready
-- Room database
-- Retrofit for remote API call, and kotlinx serialization for Json
-- Flow + coroutines to handle exchange of data between layers. Flow was not really needed to do a one-time data retrieval, though.
-- Immutable to ensure data is stable (list). No direct handling of stable / unstable data for Compose, in this example it is not really needed.
-- Dependency analysis gradle plugin to detect unused dependencies easily
+## TODO : Pas eu le temps 
+- Test instrumentés avec Espresso
+- Room database pour un cache offline
+- Immutable to ensure data is stable (list)
+- Mieux voir la couverture de code
+- Gérer un Top AppBar
+- Afficher les programmes dans un BottomSheet
+  
