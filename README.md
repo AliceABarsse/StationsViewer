@@ -54,6 +54,7 @@ https://github.com/user-attachments/assets/7cbad6c7-eaa9-41bf-a962-12df514fb94d
 - Strings extraites dans une `resource`, *I18n-ready*
 
 ## TODO : Pas eu le temps 
+- Gérer la pagination dans la liste des émissions (on n'en voit que les 99 premières), le bouton "load more" ne fait rien
 - Test instrumentés avec Espresso
 - Room database pour un cache offline
 - Immutable to ensure data is stable (list)
