@@ -17,7 +17,6 @@ class MainPaneViewModel() : ViewModel() {
         }
     }
 
-    // TODO call this when user navigates back or closes bottom sheet
     internal fun unsetSelectedStation() {
         viewModelScope.launch {
             _mainPaneState.value = MainPaneUiState.ShowStations

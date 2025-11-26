@@ -34,7 +34,7 @@ internal class RetrofitNetworkService(private val service: RadioFranceGraphQLSer
         pageSize: Int,
         lastCursor: String?,
     ): PaginatedProgramList {
-        val requestBody = getProgramsQuery(stationId = stationId)
+        val requestBody = getProgramsQuery(stationId = stationId, pageSize = pageSize, lastCursor = lastCursor)
         val response = service.postShowsQuery(requestBody)
 
         if (response.errors != null) {
@@ -49,6 +49,7 @@ internal class RetrofitNetworkService(private val service: RadioFranceGraphQLSer
             list = networkShows.map { networkProgram ->
                 networkProgram.toProgram()
             },
+            pageSize = pageSize,
             lastCursor = lastCursor,
         )
     }
