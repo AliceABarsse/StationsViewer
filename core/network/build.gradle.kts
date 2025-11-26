@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    id("com.autonomousapps.dependency-analysis")
 }
 
 android {
@@ -50,20 +51,14 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.koin.android)
     implementation(libs.koin.core)
-    implementation(libs.material)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
-    api(project(":core:domain"))
+    implementation(project(":core:domain"))
+    api(project(":core:model"))
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
     testImplementation(libs.coroutines.test)
-
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

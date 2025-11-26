@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("com.autonomousapps.dependency-analysis")
 }
 
 android {
@@ -33,15 +34,10 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.koin.android)
-    implementation(libs.koin.core)
-    implementation(libs.material)
+    api(libs.coroutines.core)
     api(project(":core:model"))
+    implementation(libs.koin.core)
+    runtimeOnly(libs.coroutines.android)
 
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

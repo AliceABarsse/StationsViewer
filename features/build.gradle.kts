@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    id("com.autonomousapps.dependency-analysis")
 }
 
 apply(from = "../gradle/scripts/jacoco.gradle")
@@ -51,45 +52,33 @@ android {
 }
 
 dependencies {
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.ui.test.junit4)
 
-    debugImplementation(libs.androidx.ui.test.manifest)
-    debugImplementation(libs.androidx.ui.tooling)
-
+    api(libs.coroutines.core)
+    api(project(":core:domain"))
+    api(project(":core:model"))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.junit.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.compose.runtime)
-    implementation(libs.koin.android)
-    implementation(libs.koin.androidx.compose)
-    implementation(libs.koin.androidx.compose.navigation)
     implementation(libs.koin.compose.viewmodel)
     implementation(libs.koin.core)
-    implementation(libs.material)
+    implementation(libs.lifecycle.viewmodel.compose)
     implementation(platform(libs.androidx.compose.bom))
-    implementation(project(":core:domain"))
-    implementation(project(":core:model"))
 
+    testImplementation(libs.androidx.junit)
     testImplementation(libs.androidx.ui.test.junit4)
-    testImplementation(libs.compose.runtime)
     testImplementation(libs.compose.runtime)
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
     testImplementation(platform(libs.androidx.compose.bom))
 
-    // Needed to define textFixture sourceSet
     testFixturesCompileOnly(libs.kotlin.stdlib)
     testFixturesImplementation(libs.compose.runtime)
     testFixturesCompileOnly(project(":core:model"))
 
-    // Use some testFixtures
-    debugImplementation(testFixtures(project(":core:model")))
+    debugImplementation(libs.androidx.ui.test.manifest)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.tooling.preview)
 }

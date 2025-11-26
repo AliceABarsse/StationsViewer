@@ -6,7 +6,8 @@ plugins {
     id("com.autonomousapps.dependency-analysis")
 }
 
-apply(from = "../gradle/scripts/jacoco.gradle")
+// For dependency analysis
+apply(from = rootProject.file("gradle/scripts/jacoco.gradle"))
 
 android {
     namespace = "com.example.stationsviewer"
@@ -59,42 +60,24 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.material3)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.compose.runtime)
     implementation(libs.koin.android)
     implementation(libs.koin.core)
-    implementation(libs.koin.compose.viewmodel)
-    implementation(libs.koin.androidx.compose)
-    implementation(libs.koin.androidx.compose.navigation)
-    implementation(libs.compose.runtime)
-    implementation(libs.kotlinx.serialization.json)
     implementation(platform(libs.androidx.compose.bom))
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
-    implementation(project(":core:model"))
     implementation(project(":core:network"))
     implementation(project(":features"))
+    testImplementation(project(":core:model"))
 
     testImplementation(libs.junit)
-    testImplementation(libs.koin.test)
-    testImplementation(libs.koin.test.junit4)
-    testImplementation(libs.koin.android.test)
-    testImplementation(libs.androidx.junit.ktx)
-    testImplementation(libs.ui.test.junit4)
 
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation(libs.junit)
     androidTestRuntimeOnly(libs.coroutines.test)
 
+    debugRuntimeOnly(libs.androidx.ui.test.manifest)
     debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-    debugImplementation(testFixtures(project(":core:model")))
 }

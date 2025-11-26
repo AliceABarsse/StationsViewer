@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +21,7 @@ fun StickyListHeader(text: String, modifier: Modifier = Modifier) {
         modifier = modifier
             .background(MaterialTheme.colorScheme.primary)
             .fillMaxWidth()
-            .height(32.dp)
+            .wrapContentHeight()
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -30,6 +31,7 @@ fun StickyListHeader(text: String, modifier: Modifier = Modifier) {
             fontWeight = FontWeight.ExtraBold,
             color = MaterialTheme.colorScheme.onPrimary,
             textAlign = TextAlign.Center,
+            maxLines = 2,
         )
     }
 }
