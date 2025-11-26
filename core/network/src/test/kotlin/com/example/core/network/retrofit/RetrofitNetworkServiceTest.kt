@@ -1,6 +1,7 @@
 package com.example.core.network.retrofit
 
 import com.example.core.model.data.Station
+import com.example.core.model.data.StationsEnum
 import com.example.core.network.model.BrandsData
 import com.example.core.network.model.BrandsGraphQLResponse
 import com.example.core.network.model.GraphQLError
@@ -121,7 +122,7 @@ class RetrofitNetworkServiceTest {
         coEvery { mockService.postShowsQuery(any()) } returns successResponse
 
         // WHEN
-        val result = testedNetworkService.getPrograms(stationId = Random.nextInt().toString())
+        val result = testedNetworkService.getPrograms(stationId = StationsEnum.entries.random().name)
 
         // THEN
         assertEquals(networkShows.size, result.list.size)

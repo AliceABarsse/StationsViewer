@@ -1,6 +1,8 @@
 package com.example.core.model.data
 
-enum class KnownStations {
+import com.example.core.model.data.StationsEnum.entries
+
+enum class StationsEnum {
     FIP,
     ELSASS,
     FIP_BORDEAUX,
@@ -90,5 +92,4 @@ enum class KnownStations {
     fun getParentStation(): String? = if (name.contains('_')) {
         name.split("_", limit = 2)[0]
         } else null
-
 }

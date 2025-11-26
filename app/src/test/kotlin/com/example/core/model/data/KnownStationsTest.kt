@@ -6,8 +6,8 @@ import org.junit.Test
 class KnownStationsTest {
     @Test
     fun getParentStation() {
-        assertEquals("FIP", KnownStations.FIP_BORDEAUX.getParentStation())
-        assertNull(KnownStations.ELSASS.getParentStation())
+        assertEquals("FIP", StationsEnum.FIP_BORDEAUX.getParentStation())
+        assertNull(StationsEnum.ELSASS.getParentStation())
     }
 
 }

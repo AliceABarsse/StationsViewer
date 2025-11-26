@@ -52,15 +52,12 @@ class ShowsGraphQLKtTest {
             """.trimIndent(), result["variables"].toString())
     }
 
-    @Test
-    fun `getProgramsQuery empty stationId`() {
+    @Test(expected = IllegalArgumentException::class)
+    fun `getProgramsQuery empty stationId causes Exception for no matching StationsEnum`() {
         // Given - When
-        val result : JsonObject = getProgramsQuery(stationId = "")
+        getProgramsQuery(stationId = "")
 
-        // Then
-        assertEquals("""
-            {"station":"","first":10,"after":null}
-            """.trimIndent(), result["variables"].toString())
+        // Then exception
     }
 
     @Test
