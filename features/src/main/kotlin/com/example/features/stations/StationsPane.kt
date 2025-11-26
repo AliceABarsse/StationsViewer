@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,12 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp.Companion.Hairline
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import com.example.features.R
+import com.example.features.sharedui.StickyListHeader
 import com.example.features.sharedui.TextCard
 
 @Composable
@@ -38,11 +37,14 @@ fun StationsPane(
     stationsState: StationsUiState = StationsUiState.Loading,
 ) {
     when (stationsState) {
-        is StationsUiState.Error -> TextCard(text = stringResource(
-            R.string.message_error,
-            stationsState.message
-        ),
-            image = painterResource(id = R.drawable.grid_3x3_off_24px))
+        is StationsUiState.Error -> TextCard(
+            text = stringResource(
+                R.string.message_error,
+                stationsState.message
+            ),
+            image = painterResource(id = R.drawable.grid_3x3_off_24px)
+        )
+
         StationsUiState.Loading -> TextCard(
             text = "Loading",
             image = painterResource(id = R.drawable.refresh_24px)
@@ -78,18 +80,7 @@ internal fun StationsList(
         contentPadding = PaddingValues(16.dp),
     ) {
         stickyHeader {
-            Row(
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.surface)
-                    .fillMaxWidth()
-                    .height(32.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.label_list_radiostations),
-                    fontWeight = FontWeight.ExtraBold,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-            }
+            StickyListHeader(text = stringResource(R.string.label_list_radiostations))
         }
         items(items = stations, key = { it.id }) { station ->
             StationItemRow(
@@ -107,23 +98,27 @@ internal fun StationItemRow(
     onClick: () -> Unit,
     station: StationDetails,
 ) {
-    Column(modifier = Modifier.background(color = MaterialTheme.colorScheme.surface)) {
+    Column(
+        modifier = Modifier
+            .background(
+                color =
+                    if (station.isLocal)
+                        MaterialTheme.colorScheme.background
+                    else MaterialTheme.colorScheme.surface,
+            )
+    ) {
         Row(
             modifier = modifier
                 .clickable(onClick = onClick)
                 .fillMaxWidth()
                 .border(
                     width = Hairline,
-                    color =
-                        if (station.isLocal)
-                            MaterialTheme.colorScheme.secondary
-                        else MaterialTheme.colorScheme.primary,
+                    color = MaterialTheme.colorScheme.tertiary,
                 )
-                .padding(all = 4.dp)
                 .background(
                     color =
                         if (station.isLocal)
-                            MaterialTheme.colorScheme.surfaceDim
+                            MaterialTheme.colorScheme.background
                         else MaterialTheme.colorScheme.surface,
                 )
                 .padding(all = 16.dp),
@@ -145,8 +140,7 @@ internal fun StationItemRow(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.5f)
-                    .padding(horizontal = 8.dp)
-                ,
+                    .padding(horizontal = 8.dp),
                 text = station.description,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 5,

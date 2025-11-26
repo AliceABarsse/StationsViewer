@@ -1,11 +1,10 @@
 package com.example.features
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import com.example.features.programs.ProgramsPane
 import com.example.features.programs.ProgramsUiState
-import com.example.features.sharedui.TextCard
 import com.example.features.stations.StationsPane
 import com.example.features.stations.StationsUiState
 
@@ -15,8 +14,12 @@ internal fun MainPane(
     modifier: Modifier = Modifier,
     programsState: ProgramsUiState,
     onClickStation: (String) -> Unit,
+    onBackClick: () -> Unit,
     mainPaneState: MainPaneUiState,
 ) {
+    BackHandler(enabled = mainPaneState is MainPaneUiState.ShowStationPrograms) {
+        onBackClick()
+    }
 
     when (mainPaneState) {
 

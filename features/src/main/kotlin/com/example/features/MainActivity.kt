@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
                             programsViewModel.loadPrograms(stationId = stationId)
                             mainPaneViewModel.setSelectedStation(stationId = stationId)
                         },
+                        onBackClick = { mainPaneViewModel.unsetSelectedStation() }
                     )
                 }
             }

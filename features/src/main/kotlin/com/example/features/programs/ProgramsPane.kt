@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,11 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import com.example.features.R
+import com.example.features.sharedui.StickyListHeader
 import com.example.features.sharedui.TextCard
 
 @Composable
@@ -76,18 +75,7 @@ internal fun ProgramsList(
         contentPadding = PaddingValues(16.dp),
     ) {
         stickyHeader {
-            Row(
-                modifier = Modifier
-                    .background(MaterialTheme.colorScheme.surface)
-                    .fillMaxWidth()
-                    .height(32.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.label_list_programs),
-                    fontWeight = FontWeight.ExtraBold,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-            }
+            StickyListHeader(text = stringResource(R.string.label_list_programs))
         }
         items(items = programs, key = { it.id }) { programDetails ->
             ProgramRow(

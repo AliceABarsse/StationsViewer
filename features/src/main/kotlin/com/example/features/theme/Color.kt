@@ -1,11 +1,12 @@
 package com.example.features.theme
 
 import androidx.compose.ui.graphics.Color
+val Parchment = Color(0xFFEDEDE9)
+val DustGrey = Color(0xFFD6CCC2)
+val Linen = Color(0xFFF5EBE0)
+val PowderPetal = Color(0xFFE3D5CA)
+val AlmondSilk = Color(0xFFD5BDAF)
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val SoftBrown = Color(0xFFC27F51)
+val CoolBrown = Color(0xFF754D31)
+val DarkBrown = Color(0xFF542D22)
