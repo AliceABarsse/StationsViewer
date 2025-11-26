@@ -28,8 +28,8 @@ class StationsPaneTest {
         }
 
         // Then
-        composeTestRule.onNodeWithText(substring = true, text = expectedStation.id, useUnmergedTree = false).assertIsDisplayed()
         composeTestRule.onNodeWithText(substring = true, text = expectedStation.name, useUnmergedTree = false).assertIsDisplayed()
+        composeTestRule.onNodeWithText(substring = true, text = expectedStation.description, useUnmergedTree = false).assertIsDisplayed()
         composeTestRule.onNodeWithText(substring = true, text = expectedStation.tagline, useUnmergedTree = false).assertIsDisplayed()
     }
 }

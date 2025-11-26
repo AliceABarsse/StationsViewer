@@ -6,10 +6,13 @@ import kotlin.random.Random
 
 fun Random.nextProgramsUiState() =
     ProgramsUiState.Success(
-        list = List(size = nextInt(from=1, until = 10), init = {
+        stationId = UUID.randomUUID().toString(),
+        stationName = UUID.randomUUID().toString(),
+        list = List(size = nextInt(from = 1, until = 10), init = {
             ProgramDetails(
                 id = nextInt().toString(),
                 name = UUID.randomUUID().toString(),
-        )}),
+            )
+        }),
         lastCursor = UUID.randomUUID().toString(),
     )

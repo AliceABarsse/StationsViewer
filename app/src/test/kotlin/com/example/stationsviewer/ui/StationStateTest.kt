@@ -22,7 +22,7 @@ class StationStateTest {
 
         // Then
         assertEquals(initialValue.id, result.id)
-        assertEquals(initialValue.id, result.name)
+        assertEquals(initialValue.title, result.name)
         assertEquals(initialValue.isLocal, result.isLocal)
         assertEquals(initialValue.description, result.description)
         assertEquals(initialValue.baseline, result.tagline)

@@ -12,15 +12,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -32,13 +37,14 @@ import com.example.features.sharedui.TextCard
 fun ProgramsPane(
     modifier: Modifier = Modifier,
     programsUiState: ProgramsUiState = ProgramsUiState.Loading,
+    onClickLoadMore: () -> Unit,
 ) {
     when (programsUiState) {
 
         is ProgramsUiState.Error -> TextCard(
             text = stringResource(
                 R.string.message_error,
-                programsUiState.message,
+                "${programsUiState.message} (${programsUiState.stationName})",
             ),
             image = painterResource(id = R.drawable.grid_3x3_off_24px),
         )
@@ -56,6 +62,8 @@ fun ProgramsPane(
         is ProgramsUiState.Success -> ProgramsList(
             programs = programsUiState.list,
             modifier = modifier,
+            stationId = programsUiState.stationName,
+            onClickLoadMore = onClickLoadMore,
         )
     }
 }
@@ -63,7 +71,9 @@ fun ProgramsPane(
 @Composable
 internal fun ProgramsList(
     modifier: Modifier = Modifier,
-    programs: List<ProgramDetails>
+    stationId: String,
+    programs: List<ProgramDetails>,
+    onClickLoadMore: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier
@@ -75,13 +85,23 @@ internal fun ProgramsList(
         contentPadding = PaddingValues(16.dp),
     ) {
         stickyHeader {
-            StickyListHeader(text = stringResource(R.string.label_list_programs))
+            StickyListHeader(text = stringResource(R.string.label_list_withname, stationId))
         }
         items(items = programs, key = { it.id }) { programDetails ->
             ProgramRow(
                 programDetails = programDetails,
                 modifier = Modifier.Companion.animateItem(),
             )
+        }
+        item(key = "load-more") {
+            Button(onClick = onClickLoadMore) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Charger plus de programmes",
+                    textAlign = TextAlign.Center,
+                )
+            }
+
         }
     }
 }

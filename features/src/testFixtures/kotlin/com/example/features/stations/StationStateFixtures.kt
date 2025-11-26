@@ -9,7 +9,7 @@ fun Random.nextStationDetail(
 ) =
     StationDetails(
         id = id,
-        name = id,
+        name = UUID.randomUUID().toString(),
         description = UUID.randomUUID().toString(),
         tagline = UUID.randomUUID().toString(),
         isLocal = isLocal,

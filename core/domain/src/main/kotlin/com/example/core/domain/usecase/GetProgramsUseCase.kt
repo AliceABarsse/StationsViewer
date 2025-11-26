@@ -10,5 +10,5 @@ class GetProgramsUseCase(private val dataSource: ProgramRepository) {
         pageSize: Int = 10,
         lastCursor: String? = null,
     ): PaginatedProgramList =
-        dataSource.getPrograms(stationId)
+        dataSource.getPrograms(stationId, pageSize = pageSize, lastCursor = lastCursor)
 }

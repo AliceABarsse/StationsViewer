@@ -26,13 +26,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp.Companion.Hairline
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
+import com.example.core.model.data.Station
 import com.example.features.R
 import com.example.features.sharedui.StickyListHeader
 import com.example.features.sharedui.TextCard
 
 @Composable
 fun StationsPane(
-    onClickStation: (String) -> Unit,
+    onClickStation: (Station) -> Unit,
     modifier: Modifier = Modifier,
     stationsState: StationsUiState = StationsUiState.Loading,
 ) {
@@ -66,7 +67,7 @@ fun StationsPane(
 
 @Composable
 internal fun StationsList(
-    onClickStation: (String) -> Unit,
+    onClickStation: (Station) -> Unit,
     modifier: Modifier = Modifier,
     stations: List<StationDetails>
 ) {
@@ -86,7 +87,7 @@ internal fun StationsList(
             StationItemRow(
                 station = station,
                 modifier = Modifier.Companion.animateItem(),
-                onClick = { onClickStation(station.id) },
+                onClick = { onClickStation(station.toStation()) },
             )
         }
     }

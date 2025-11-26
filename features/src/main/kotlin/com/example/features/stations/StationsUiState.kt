@@ -19,8 +19,16 @@ data class StationDetails(
 )
 fun Station.toStationState() = StationDetails(
     id = id,
-    name = id,
+    name = title,
     description = description,
     tagline = baseline,
     isLocal = isLocal,
+)
+
+fun StationDetails.toStation() = Station(
+    id = id,
+    description = description,
+    baseline = tagline,
+    isLocal = isLocal,
+    title = name,
 )

@@ -4,9 +4,11 @@ import com.example.core.model.data.Program
 
 sealed interface ProgramsUiState {
     object Loading : ProgramsUiState
-    data class Error(val message: String) : ProgramsUiState
+    data class Error(val stationName: String, val message: String) : ProgramsUiState
     object Empty : ProgramsUiState
     data class Success(
+        val stationId: String,
+        val stationName: String,
         val list: List<ProgramDetails>,
         val lastCursor: String? = null,
         val pageSize: Int = 10,
@@ -20,5 +22,5 @@ data class ProgramDetails(
 
 fun Program.toProgramDetails() = ProgramDetails(
     id = id,
-    name = id,
+    name = title,
 )

@@ -43,11 +43,6 @@ jobs:
           paths: app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Generate JaCoCo Badge
-        uses: cicirello/jacoco-badge-generator@v2
-        with:
-          jacoco-csv-file: app/build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.csv
-
       - name: Log coverage percentage
         run: |
           echo "coverage = ${{ steps.jacoco.outputs.coverage }}"

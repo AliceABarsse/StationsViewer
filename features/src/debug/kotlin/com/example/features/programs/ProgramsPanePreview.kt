@@ -12,6 +12,7 @@ private fun ProgramsPanePreview() {
     StationsViewerTheme {
         ProgramsPane(
             programsUiState = Random.nextProgramsUiState(),
+            onClickLoadMore = {},
         )
     }
 }

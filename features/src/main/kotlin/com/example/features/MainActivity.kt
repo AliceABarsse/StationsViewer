@@ -38,11 +38,12 @@ class MainActivity : ComponentActivity() {
                         mainPaneState = mainPaneState,
                         stationsState = stationsState,
                         programsState = programsState,
-                        onClickStation = { stationId ->
-                            programsViewModel.loadPrograms(stationId = stationId)
-                            mainPaneViewModel.setSelectedStation(stationId = stationId)
+                        onClickStation = { station ->
+                            programsViewModel.loadPrograms(station = station)
+                            mainPaneViewModel.setSelectedStation(stationId = station.id)
                         },
-                        onBackClick = { mainPaneViewModel.unsetSelectedStation() }
+                        onBackClick = { mainPaneViewModel.unsetSelectedStation() },
+                        onClickLoadMore = { programsViewModel::loadMorePrograms }
                     )
                 }
             }
