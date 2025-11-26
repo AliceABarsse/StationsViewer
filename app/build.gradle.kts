@@ -6,7 +6,6 @@ plugins {
     id("com.autonomousapps.dependency-analysis")
 }
 
-// For dependency analysis
 apply(from = rootProject.file("gradle/scripts/jacoco.gradle"))
 
 android {

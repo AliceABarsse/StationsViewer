@@ -5,7 +5,7 @@ plugins {
     id("com.autonomousapps.dependency-analysis")
 }
 
-apply(from = "../gradle/scripts/jacoco.gradle")
+apply(from = rootProject.file("gradle/scripts/jacoco.gradle"))
 
 android {
     namespace = "com.example.features"
